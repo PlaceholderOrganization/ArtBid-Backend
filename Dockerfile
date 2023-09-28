@@ -11,7 +11,7 @@ COPY ./pom.xml ./pom.xml
 COPY ./src ./src
 
 # Building the project
-RUN mvn clean package -DskipTests
+RUN mvnw clean package -DskipTests
 
 
 # Use OpenJDK 17 Base Image
