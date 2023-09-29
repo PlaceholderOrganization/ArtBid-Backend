@@ -69,7 +69,7 @@
 - **Backend** - [PlaceholderBackend](https://github.com/PlaceholderOrganization/PlaceholderBackend)
 - **Frontend** - [PlaceholderFrontend](https://github.com/PlaceholderOrganization/PlaceholderFrontend)
 ### Deployment Services
-- **Azure App Service** - [Link to App Service - WIP](#)
+- **Azure App Service** - [Link to App Service](en-app.azurewebsites.net)
 - **GitHub Actions** - [Link to GH Actions - WIP](#)
 - **Azure VM eller DB eller begge dele** - [Link to GH Actions - WIP](#)
 
