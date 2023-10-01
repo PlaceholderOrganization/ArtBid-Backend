@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy JAR app to Azure Web App - art-app
+name: Staging Deployment
 
 on:
   push:
@@ -51,3 +51,10 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8E002A080458453E9059CABE4768AB4A }}
           package: '*.jar'
+          
+      - name: Merge Staging into Main (if successful)
+        if: success()
+        run: |
+          git checkout main
+          git merge --no-ff staging -m "Merge staging into main"
+          git push origin main
