@@ -51,10 +51,3 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8E002A080458453E9059CABE4768AB4A }}
           package: '*.jar'
-          
-      - name: Merge Staging into Main (if successful)
-        if: success()
-        run: |
-          git checkout main
-          git merge --no-ff staging -m "Merge staging into main"
-          git push origin main
