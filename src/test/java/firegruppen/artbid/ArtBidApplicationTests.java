@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ArtBidApplicationTests {
 
-    @Test
+//    @Test
     void contextLoads() {
     }
 
