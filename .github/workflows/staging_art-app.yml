@@ -47,7 +47,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'art-app'
+          app-name: 'Staging-web-app'
           slot-name: 'Staging'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8E002A080458453E9059CABE4768AB4A }}
           package: '*.jar'
