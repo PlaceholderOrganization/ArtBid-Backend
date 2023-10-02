@@ -38,8 +38,6 @@ public class Member extends UserWithRoles {
     @Column(length = 10)
     private String zipCode;
 
-
-
     public Member(String username, String firstName, String lastName, String street, String city, String zipCode, String email, String password, LocalDateTime created, LocalDateTime updated, boolean enabled, boolean accountNonExpired, boolean accountNonLocked, List<Role> roles) {
         super(username, email, password, created, updated, enabled, accountNonExpired, accountNonLocked, roles);
         this.firstName = firstName;
@@ -47,7 +45,7 @@ public class Member extends UserWithRoles {
         this.street = street;
         this.city = city;
         this.zipCode = zipCode;
-    }
+    }  
 
     // Inside Member class
     public static Member getMemberEntity(MemberRequest request) {
@@ -62,7 +60,13 @@ public class Member extends UserWithRoles {
     member.setEmail(request.getEmail());
     member.setPassword(request.getPassword());
     return member;
-        
     }
 
+    public Member(String string, String string2, String string3, String string4, String string5, String string6,
+            String string7, String string8, String string9, String string10, boolean b, boolean c, boolean d, boolean e,
+            String string11) {
+    }
+
+    public Member(String string, String string2, String string3, String string4, String string5, String string6) {
+    }
 }

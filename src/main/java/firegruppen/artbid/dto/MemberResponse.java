@@ -57,5 +57,6 @@ public class MemberResponse {
             this.accountNonExpired = m.isAccountNonExpired();
             this.accountNonLocked = m.isAccountNonLocked();
         }
+
     }
 }
