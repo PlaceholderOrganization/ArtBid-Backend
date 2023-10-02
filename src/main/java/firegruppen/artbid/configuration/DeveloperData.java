@@ -1,15 +1,9 @@
 package firegruppen.artbid.configuration;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.userdetails.User;
-
-import firegruppen.artbid.entity.Member;
 import firegruppen.artbid.repository.MemberRepository;
 import firegruppen.security.entity.Role;
 import firegruppen.security.entity.UserWithRoles;
