@@ -33,6 +33,7 @@ import com.nimbusds.jose.proc.SecurityContext;
 
 import firegruppen.security.error.CustomOAuth2AccessDeniedHandler;
 import firegruppen.security.error.CustomOAuth2AuthenticationEntryPoint;
+import firegruppen.security.configuration.CorsConfig;
 
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
@@ -46,11 +47,12 @@ public class SecurityConfig {
     @Autowired
     CorsConfigurationSource corsConfigurationSource;
 
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
         MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
         http
                 .cors(Customizer.withDefaults()) //Will use the CorsConfigurationSource bean declared in CorsConfig.java
-                //.cors(cors -> cors.configurationSource(corsConfigurationSource))
+                .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .csrf(csrf -> csrf.disable())
                 .httpBasic(Customizer.withDefaults())
                 //.httpBasic(httpBasic -> httpBasic.disable())
@@ -65,6 +67,11 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authotize -> authotize
                 .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/auth/login")).permitAll()
                 .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/user-with-roles")).permitAll() //Clients can create user for themselves
+
+                // TODO 1: This is demo code, remove it before deployment
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/members")).permitAll()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/members/{id}")).permitAll()
+
 
                 // TODO 2: This is demo code, remove it before deployment
                 .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/demo/anonymous")).permitAll()
@@ -84,8 +91,11 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
 
 
-                .anyRequest().permitAll()
+                //.anyRequest().permitAll()
                 );
+        
+        http.cors().and(); //
+        
         return http.build();
     }
 
