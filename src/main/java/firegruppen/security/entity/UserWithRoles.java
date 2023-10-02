@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Set;
+
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -84,6 +86,16 @@ public class UserWithRoles implements UserDetails {
         setPassword(password);
     }
 
+    public UserWithRoles(String username, String email, String password, LocalDateTime created, LocalDateTime updated, boolean enabled, boolean accountNonExpired, boolean accountNonLocked, List<Role> roles) {
+        this.username = username;
+        this.email = email;
+        setPassword(password);
+        this.created = created;
+        this.updated = updated;
+        this.enabled = enabled;
+        this.roles = new ArrayList<>(roles);
+    }
+    
     public void setPassword(String password) {
         this.password = passwordEncoder.encode(password);
     }
