@@ -29,11 +29,7 @@ public class DeveloperData implements ApplicationRunner {
 
         System.out.println("Hello from DeveloperData");
 
-        List<Member> members = new ArrayList<>();
-        members.add(new Member("bruger1", "Sten", "En", "Gade 1", "By 1", "1234"));
-        members.add(new Member("bruger2", "Birger", "To", "Gade 2", "By 2", "1234"));
-        members.add(new Member("bruger3", "Paprika", "Tre", "Gade 3", "By 3", "1234"));
-        memberRepository.saveAll(members);
+  
 
 
         setupUserWithRoles();

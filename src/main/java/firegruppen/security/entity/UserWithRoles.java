@@ -55,23 +55,24 @@ public class UserWithRoles implements UserDetails {
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false,length = 50,unique = true)
+    @Column(nullable = false,length = 50, unique = true, name = "username")
     String username;
 
-    @Column(nullable = false,length = 50,unique = true)
+    @Column(nullable = false,length = 50, name = "user_email")
     String email;
 
     //60 = length of a bcrypt encoded password
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false, length = 60, name = "user_password")
     String password;
 
     private boolean enabled= true;
 
     @CreationTimestamp
+    @Column(name = "user_created")
     private LocalDateTime created;
 
     @UpdateTimestamp
+    @Column(name = "user_updated")
     private LocalDateTime updated;
 
     @Enumerated(EnumType.STRING)

@@ -9,6 +9,7 @@ import firegruppen.security.dto.UserWithRolesResponse;
 import firegruppen.security.entity.Role;
 import firegruppen.security.entity.UserWithRoles;
 import firegruppen.security.repository.UserWithRolesRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class UserWithRolesService {
@@ -25,6 +26,7 @@ public class UserWithRolesService {
     }
 
     // Make sure that this can only be called by an Admin
+    @Transactional
     public UserWithRolesResponse addRole(String username , Role role){
         UserWithRoles user = userWithRolesRepository.findById(username).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
         user.addRole(role);
@@ -32,6 +34,7 @@ public class UserWithRolesService {
     }
 
     // Make sure that this can only be called by an Admin
+    @Transactional
     public UserWithRolesResponse removeRole(String username, Role role){
 
         UserWithRoles user = userWithRolesRepository.findById(username).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
@@ -40,6 +43,7 @@ public class UserWithRolesService {
     }
 
     // Only way to change roles is via the addRole method
+    @Transactional
     public UserWithRolesResponse editUserWithRoles(String username, UserWithRolesRequest body) {
         UserWithRoles user = userWithRolesRepository.findById(username).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
         user.setEmail(body.getEmail());
@@ -54,6 +58,7 @@ public class UserWithRolesService {
      * @return the user added
      */
 
+    @Transactional
     public UserWithRolesResponse addUserWithRoles(UserWithRolesRequest body, Role role) {
         if (userWithRolesRepository.existsById(body.getUsername())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"This user name is taken");
