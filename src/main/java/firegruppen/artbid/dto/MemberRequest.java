@@ -17,6 +17,10 @@ public class MemberRequest {
     private String email;
     private String firstName;
     private String lastName;
+    private String street;
+    private String city;
+    private String zipCode;
+    
 
     public MemberRequest(Member m){
         this.username = m.getUsername();
