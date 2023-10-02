@@ -69,6 +69,6 @@ public class Member extends UserWithRoles {
             String string11) {
     }
 
-    public Member(String string, String string2, String string3, String string4, String string5, String string6) {
+    public Member(String username, String password, String email, String firstName, String lastName, String street, String city, String zip) {
     }
 }

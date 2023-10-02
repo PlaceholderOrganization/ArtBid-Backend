@@ -1,9 +1,14 @@
 package firegruppen.artbid.configuration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
+
+import firegruppen.artbid.entity.Member;
 import firegruppen.artbid.repository.MemberRepository;
 import firegruppen.security.entity.Role;
 import firegruppen.security.entity.UserWithRoles;
@@ -22,8 +27,6 @@ public class DeveloperData implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
 
         System.out.println("Hello from DeveloperData");
-
-  
 
 
         setupUserWithRoles();
