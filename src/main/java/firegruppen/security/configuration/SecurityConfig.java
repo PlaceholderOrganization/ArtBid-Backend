@@ -20,14 +20,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
+
+import com.nimbusds.jose.jwk.source.ImmutableSecret;
 
 import firegruppen.security.error.CustomOAuth2AccessDeniedHandler;
 import firegruppen.security.error.CustomOAuth2AuthenticationEntryPoint;
@@ -115,9 +117,9 @@ public class SecurityConfig {
 
     @Bean
     public JwtEncoder jwtEncoder() {
-        return new NimbusJwtEncoder(
-                new ImmutableSecret<SecurityContext>(secretKey())
-        );
+      return new NimbusJwtEncoder(
+              new ImmutableSecret<SecurityContext>(secretKey())
+      );
     }
 
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
