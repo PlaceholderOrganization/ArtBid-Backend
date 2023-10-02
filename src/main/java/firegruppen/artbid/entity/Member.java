@@ -1,8 +1,16 @@
 package firegruppen.artbid.entity;
 
+import java.time.LocalDateTime;
+import java.util.List;
+
+import firegruppen.artbid.dto.MemberRequest;
+import firegruppen.security.entity.Role;
+import firegruppen.security.entity.UserWithRoles;
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,19 +22,53 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Member {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "USER_TYPE")
+public class Member extends UserWithRoles {
     
-    @Id
-    @Column(length = 25)
+
     @NonNull
-    private String username;
-    @NonNull
-    private String password;
-    @NonNull
-    private String email;
-    @NonNull
+    @Column(length = 25, name = "first_name")
     private String firstName;
     @NonNull
+    @Column(length = 25, name = "last_name")
     private String lastName;
+    @Column(length = 45)
+    private String street;
+    @Column(length = 45)
+    private String city;
+    @Column(length = 10)
+    private String zipCode;
 
+    public Member(String username, String firstName, String lastName, String street, String city, String zipCode, String email, String password, LocalDateTime created, LocalDateTime updated, boolean enabled, boolean accountNonExpired, boolean accountNonLocked, List<Role> roles) {
+        super(username, email, password, created, updated, enabled, accountNonExpired, accountNonLocked, roles);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.street = street;
+        this.city = city;
+        this.zipCode = zipCode;
+    }  
+
+    // Inside Member class
+    public static Member getMemberEntity(MemberRequest request) {
+    // Convert MemberRequest to Member and return
+    Member member = new Member();
+    member.setUsername(request.getUsername());
+    member.setFirstName(request.getFirstName());
+    member.setLastName(request.getLastName());
+    member.setStreet(request.getStreet());
+    member.setCity(request.getCity());
+    member.setZipCode(request.getZipCode());
+    member.setEmail(request.getEmail());
+    member.setPassword(request.getPassword());
+    return member;
+    }
+
+    public Member(String string, String string2, String string3, String string4, String string5, String string6,
+            String string7, String string8, String string9, String string10, boolean b, boolean c, boolean d, boolean e,
+            String string11) {
+    }
+
+    public Member(String username, String password, String email, String firstName, String lastName, String street, String city, String zip) {
+    }
 }
