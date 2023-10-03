@@ -49,7 +49,6 @@ public class DeveloperData implements ApplicationRunner {
         artworkRepository.saveAll(artworks);
 
         Member m2 = new Member("Fisk","fisk","fisk@fisk.com","Fisk","Fisken","Fiskevej","Fiskeby","0002");
-        Artwork art2 = new Artwork("title","art","this is art",10.0, LocalDate.now(),true);
         Review r2 = new Review("god",5,LocalDate.now(),art2,m2);
         memberRepository.save(m2);
 
