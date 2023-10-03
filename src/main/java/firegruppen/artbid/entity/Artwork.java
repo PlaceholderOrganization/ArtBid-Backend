@@ -6,7 +6,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -25,7 +25,7 @@ public class Artwork {
     @Column(name = "title", length = 100)
     private String title;
     @Column(name = "category", length = 100)
-    private String category; //burde category være en tabel for sig selv eller enum/ superclass??
+    private String category; 
     @Column(name = "description", length = 1000)
     private String description;
     @Column(name = "price")
@@ -33,26 +33,33 @@ public class Artwork {
     @Column(name = "UploadDate")
     @CreationTimestamp
     private LocalDate uploadDate;
+
     @Column(name = "forSale")
     private boolean forSale;
-    //Superclass til dato for oprettelse/redigering??
+
+
+   //Superclass til dato for oprettelse/redigering??
 
     @ElementCollection
     @CollectionTable(name = "artwork_images", joinColumns = @JoinColumn(name = "artworkId"))
     @Column(name = "image", length = 10485760)
     private List<String> images;
 
-//
-    //review med her???
-//    @OneToMany
-//    Review review
-
 //    @ManyToOne
 //    Artist artist;
 
 //    @OneToMany(mappedBy = "artwork")
 //    List<ArtworkImages> artworkImages;
+  
+   @OneToMany(mappedBy = "artwork")
+    List<Review> reviews;
 
+    public void addReview(Review review) {
+        if(reviews==null) {
+            reviews = new ArrayList<>();
+        }
+        reviews.add(review);
+    }
 
     public Artwork(String title, String category, String description, double price, boolean forSale, List<String> images) {
         this.title = title;
