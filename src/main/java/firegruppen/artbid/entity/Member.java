@@ -36,12 +36,22 @@ public class Member extends UserWithRoles {
     @OneToMany(mappedBy = "member")
     List<Review> reviews;
 
+//    @OneToMany(mappedBy = "member")
+//    List<Bid> bids;
+
     public void addReview(Review review) {
         if(reviews==null){
             reviews = new ArrayList<>();
         }
         reviews.add(review);
     }
+
+//    public void addBid(Bid bid) {
+//        if(bids==null){
+//            bids = new ArrayList<>();
+//        }
+//        bids.add(bid);
+//    }
 
     public Member(String username, String firstName, String lastName, String street, String city, String zipCode, String email, String password, LocalDateTime created, LocalDateTime updated, boolean enabled, boolean accountNonExpired, boolean accountNonLocked, List<Role> roles) {
         super(username, email, password, created, updated, enabled, accountNonExpired, accountNonLocked, roles);

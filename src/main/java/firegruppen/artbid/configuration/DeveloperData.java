@@ -13,14 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Configuration
 public class DeveloperData implements ApplicationRunner {
@@ -48,7 +47,10 @@ public class DeveloperData implements ApplicationRunner {
         artworks.add(new Artwork("Title2", "Category2", "Description2", 50, false, Collections.singletonList(defaultImage)));
         artworkRepository.saveAll(artworks);
 
-      
+        Member m1 = new Member("username1", "Ole", "Olsen", "Olsensvej", "Olsenstad", "0001", "test@m.com", "test123", LocalDateTime.now(), LocalDateTime.now(), true, true, true, new ArrayList<>(Arrays.asList(Role.USER, Role.ADMIN)));
+        memberRepository.save(m1);
+        Review r1 = new Review("description",5, LocalDate.now(),artworks.get(0),m1);
+        reviewRepository.save(r1);
 
 
 
@@ -80,13 +82,6 @@ public class DeveloperData implements ApplicationRunner {
         userWithRolesRepository.save(user2);
         userWithRolesRepository.save(user3);
         userWithRolesRepository.save(user4);
-
-        Member m1 = new Member("username1", "Ole", "Olsen", "Olsensvej", "Olsenstad", "0001", "test@m.com", "test123", LocalDateTime.now(), LocalDateTime.now(), true, true, true, new ArrayList<>(Arrays.asList(Role.USER, Role.ADMIN)));
-
         //Reviews for internal tests
-      
     }
-
-
-
 }
