@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,6 +34,25 @@ public class Artwork {
     private LocalDate uploadDate;
     @Column(name = "isAvailable")
     private boolean isAvailable;
+
+    @OneToMany(mappedBy = "artwork")
+    List<Review> reviews;
+
+    public void addReview(Review review) {
+        if(reviews==null) {
+            reviews = new ArrayList<>();
+        }
+        reviews.add(review);
+    }
+
+    public Artwork(String title, String category, String description, double price, LocalDate uploadDate, boolean isAvailable) {
+        this.title = title;
+        this.category = category;
+        this.description = description;
+        this.price = price;
+        this.uploadDate = uploadDate;
+        this.isAvailable = isAvailable;
+    }
 
     //Superclass til dato for oprettelse/redigering??
 

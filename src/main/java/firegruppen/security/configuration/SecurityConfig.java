@@ -1,8 +1,9 @@
 package firegruppen.security.configuration;
 
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-
+import com.nimbusds.jose.jwk.source.ImmutableSecret;
+import com.nimbusds.jose.proc.SecurityContext;
+import firegruppen.security.error.CustomOAuth2AccessDeniedHandler;
+import firegruppen.security.error.CustomOAuth2AuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -28,12 +29,8 @@ import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
-import com.nimbusds.jose.jwk.source.ImmutableSecret;
-import com.nimbusds.jose.proc.SecurityContext;
-
-import firegruppen.security.error.CustomOAuth2AccessDeniedHandler;
-import firegruppen.security.error.CustomOAuth2AuthenticationEntryPoint;
-import firegruppen.security.configuration.CorsConfig;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
@@ -85,9 +82,8 @@ public class SecurityConfig {
                 //TODO 3: This is for demo. Remove before deploy
                 .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/test/user-only")).hasAuthority("USER")
                 .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/test/admin-only")).hasAuthority("ADMIN")
-
                 // Use this to completely disable security
-                //.requestMatchers(mvcMatcherBuilder.pattern("/**")).permitAll()
+                .requestMatchers(mvcMatcherBuilder.pattern("/**")).permitAll()
                 .anyRequest().authenticated()
 
 

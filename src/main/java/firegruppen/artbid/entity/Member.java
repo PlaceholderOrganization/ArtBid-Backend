@@ -1,21 +1,14 @@
 package firegruppen.artbid.entity;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import firegruppen.artbid.dto.MemberRequest;
 import firegruppen.security.entity.Role;
 import firegruppen.security.entity.UserWithRoles;
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,6 +32,16 @@ public class Member extends UserWithRoles {
     private String city;
     @Column(length = 10)
     private String zipCode;
+
+    @OneToMany(mappedBy = "member")
+    List<Review> reviews;
+
+    public void addReview(Review review) {
+        if(reviews==null){
+            reviews = new ArrayList<>();
+        }
+        reviews.add(review);
+    }
 
     public Member(String username, String firstName, String lastName, String street, String city, String zipCode, String email, String password, LocalDateTime created, LocalDateTime updated, boolean enabled, boolean accountNonExpired, boolean accountNonLocked, List<Role> roles) {
         super(username, email, password, created, updated, enabled, accountNonExpired, accountNonLocked, roles);
