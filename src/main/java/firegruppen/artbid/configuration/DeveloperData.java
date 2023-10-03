@@ -48,10 +48,7 @@ public class DeveloperData implements ApplicationRunner {
         artworks.add(new Artwork("Title2", "Category2", "Description2", 50, false, Collections.singletonList(defaultImage)));
         artworkRepository.saveAll(artworks);
 
-        Member m2 = new Member("Fisk","fisk","fisk@fisk.com","Fisk","Fisken","Fiskevej","Fiskeby","0002");
-        Artwork art2 = new Artwork("title","art","this is art",10.0, LocalDate.now(),true);
-        Review r2 = new Review("god",5,LocalDate.now(),art2,m2);
-        memberRepository.save(m2);
+      
 
 
 
@@ -87,11 +84,7 @@ public class DeveloperData implements ApplicationRunner {
         Member m1 = new Member("username1", "Ole", "Olsen", "Olsensvej", "Olsenstad", "0001", "test@m.com", "test123", LocalDateTime.now(), LocalDateTime.now(), true, true, true, new ArrayList<>(Arrays.asList(Role.USER, Role.ADMIN)));
 
         //Reviews for internal tests
-        Artwork art1 = new Artwork("title","art","this is art",10.0, LocalDate.now(),true);
-        Review r1 = new Review("Good art", 5, LocalDate.now(), art1, m1);
-        artworkRepository.save(art1);
-        memberRepository.save(m1);
-        reviewRepository.save(r1);
+      
     }
 
 
