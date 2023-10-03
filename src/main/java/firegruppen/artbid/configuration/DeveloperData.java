@@ -7,6 +7,8 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Configuration
@@ -23,9 +25,11 @@ public class DeveloperData implements ApplicationRunner {
 
         List<Artwork> artworks = new ArrayList<>();
 
-        artworks.add(new Artwork("Title", "Category", "Description", 50, true));
-        artworks.add(new Artwork("Title1", "Category1", "Description1", 50, true));
-        artworks.add(new Artwork("Title2", "Category2", "Description2", 50, false));
+        String defaultImage = "base64_encoded_image_string_here";
+
+        artworks.add(new Artwork("Title", "Category", "Description", 50, true, Collections.singletonList(defaultImage)));
+        artworks.add(new Artwork("Title1", "Category1", "Description1", 50, true, Collections.singletonList(defaultImage)));
+        artworks.add(new Artwork("Title2", "Category2", "Description2", 50, false, Collections.singletonList(defaultImage)));
         artworkRepository.saveAll(artworks);
     }
 }

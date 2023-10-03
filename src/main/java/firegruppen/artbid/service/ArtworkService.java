@@ -60,11 +60,19 @@ public class ArtworkService {
         artwork.setDescription(bodyArt.getDescription());
         artwork.setPrice(bodyArt.getPrice());
         artwork.setForSale(bodyArt.isForSale());
+        artwork.setImages(bodyArt.getImages());
         artworkRepository.save(artwork);
         return ResponseEntity.ok(true);
     }
 
     //Delete Artwork
+    public ResponseEntity<Boolean> deleteArtwork(int artworkId){
+        if(!artworkRepository.existsById(artworkId)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Artwork with that id does not exist");
+        }
+        artworkRepository.deleteById(artworkId);
+        return ResponseEntity.ok(true);
+    }
 
     //Get Artwork by Category
 

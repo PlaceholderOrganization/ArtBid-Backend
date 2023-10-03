@@ -36,6 +36,12 @@ public class Artwork {
     @Column(name = "forSale")
     private boolean forSale;
     //Superclass til dato for oprettelse/redigering??
+
+    @ElementCollection
+    @CollectionTable(name = "artwork_images", joinColumns = @JoinColumn(name = "artworkId"))
+    @Column(name = "image", length = 10485760)
+    private List<String> images;
+
 //
     //review med her???
 //    @OneToMany
@@ -44,15 +50,17 @@ public class Artwork {
 //    @ManyToOne
 //    Artist artist;
 
-    @OneToMany(mappedBy = "artwork")
-    List<ArtworkImages> artworkImages;
+//    @OneToMany(mappedBy = "artwork")
+//    List<ArtworkImages> artworkImages;
 
-    public Artwork(String title, String category, String description, double price, boolean forSale) {
+
+    public Artwork(String title, String category, String description, double price, boolean forSale, List<String> images) {
         this.title = title;
         this.category = category;
         this.description = description;
         this.price = price;
         this.forSale = forSale;
+        this.images = images;
     }
 
     public boolean isForSale() {

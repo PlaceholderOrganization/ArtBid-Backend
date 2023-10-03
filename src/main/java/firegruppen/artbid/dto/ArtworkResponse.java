@@ -5,6 +5,8 @@ import firegruppen.artbid.entity.Artwork;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,6 +22,7 @@ public class ArtworkResponse {
     double price;
     LocalDate uploadDate;
     boolean forSale;
+    List<String> images;
 
     public ArtworkResponse(Artwork art){
         this.artworkId = art.getArtworkId();
@@ -29,6 +32,7 @@ public class ArtworkResponse {
         this.price = art.getPrice();
         this.uploadDate = art.getUploadDate();
         this.forSale = art.isForSale();
+        this.images = art.getImages();
     }
 
 }
