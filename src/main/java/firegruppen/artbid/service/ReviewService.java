@@ -2,10 +2,13 @@ package firegruppen.artbid.service;
 
 import firegruppen.artbid.dto.ReviewRequest;
 import firegruppen.artbid.dto.ReviewResponse;
+import firegruppen.artbid.entity.Artwork;
+import firegruppen.artbid.entity.Member;
 import firegruppen.artbid.entity.Review;
 import firegruppen.artbid.repository.ArtworkRepository;
 import firegruppen.artbid.repository.MemberRepository;
 import firegruppen.artbid.repository.ReviewRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,12 +29,28 @@ public class ReviewService {
 
 
     public List<ReviewResponse> getReviewsByArtwork(int artworkId) {
-        List<Review> reviews = reviewRepository.findAllByArtwork(artworkId);
+        List<Review> reviews = reviewRepository.findAllByArtwork_ArtworkId(artworkId);
         List<ReviewResponse> response = reviews.stream().map(ReviewResponse::new).toList();
         return response;
     }
     public void addReview(ReviewRequest reviewRequest) {
-        Review newReview = ReviewRequest.getReviewEntity(reviewRequest);
-        newReview = reviewRepository.save(newReview);
+        Artwork artwork = artworkRepository.findById(reviewRequest.getArtworkId())
+                .orElseThrow(()-> new EntityNotFoundException("Artwork not found"));
+        Member member = memberRepository.findById(reviewRequest.getUsername())
+                .orElseThrow(()-> new EntityNotFoundException("Member not found"));
+        Review review = new Review();
+        review.setDescription(reviewRequest.getDescription());
+        review.setRating(reviewRequest.getRating());
+        review.setDate(reviewRequest.getDate());
+        review.setArtwork(artwork);
+        review.setMember(member);
+
+        reviewRepository.save(review);
+    }
+
+    public List<ReviewResponse> getAllReviews() {
+        List<Review> reviews= reviewRepository.findAll();
+        List<ReviewResponse> response = reviews.stream().map(ReviewResponse::new).toList();
+        return response;
     }
 }

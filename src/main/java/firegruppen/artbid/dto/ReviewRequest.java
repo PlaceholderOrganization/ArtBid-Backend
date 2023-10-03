@@ -22,10 +22,6 @@ public class ReviewRequest {
     String username;
     Integer artworkId;
 
-    public static Review getReviewEntity(ReviewRequest reviewRequest) {
-        return new Review(reviewRequest.description, reviewRequest.rating, reviewRequest.date, Artwork artwork, Member member);
-    }
-
     public ReviewRequest(Review review) {
         this.id = review.getId();
         this.description = review.getDescription();

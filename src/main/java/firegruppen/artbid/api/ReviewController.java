@@ -21,4 +21,9 @@ public class ReviewController {
     public List<ReviewResponse> getReviews(@PathVariable int artworkId) throws Exception {
         return reviewService.getReviewsByArtwork(artworkId);
     }
+    @GetMapping("")
+    public List<ReviewResponse> getAllReviews() throws Exception {
+        return reviewService.getAllReviews();
+    }
+
 }
