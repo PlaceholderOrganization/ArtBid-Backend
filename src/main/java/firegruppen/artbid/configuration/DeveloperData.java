@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,6 +38,15 @@ public class DeveloperData implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
 
         System.out.println("Hello from DeveloperData");
+      
+        List<Artwork> artworks = new ArrayList<>();
+
+        String defaultImage = "base64_encoded_image_string_here";
+
+        artworks.add(new Artwork("Title", "Category", "Description", 50, true, Collections.singletonList(defaultImage)));
+        artworks.add(new Artwork("Title1", "Category1", "Description1", 50, true, Collections.singletonList(defaultImage)));
+        artworks.add(new Artwork("Title2", "Category2", "Description2", 50, false, Collections.singletonList(defaultImage)));
+        artworkRepository.saveAll(artworks);
 
         Member m2 = new Member("Fisk","fisk","fisk@fisk.com","Fisk","Fisken","Fiskevej","Fiskeby","0002");
         Artwork art2 = new Artwork("title","art","this is art",10.0, LocalDate.now(),true);
