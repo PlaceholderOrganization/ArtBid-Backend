@@ -1,5 +1,6 @@
 package firegruppen.artbid.entity;
 
+import firegruppen.artbid.dto.AuctionRequest;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -47,10 +48,15 @@ public class Auction {
     }
 
 
-    /*
-StartDate: Start date and time of the auction.
-EndDate: End date and time of the auction.
-CurrentBid: The current highest bid for the artwork.
-Other auction-related information (e.g., minimum bid increment).
-*/
+    public static Auction getAuctionEntity(AuctionRequest request){
+        Auction auction = new Auction();
+        auction.setAuctionId(request.getAuctionId());
+        auction.setArtworkId(request.getArtworkId());
+        auction.setStartDate(request.getStartDate());
+        auction.setEndDate(request.getEndDate());
+        auction.setStartBid(request.getStartBid());
+        auction.setCurrentBid(request.getCurrentBid());
+        auction.setMinimumIncrement(request.getMinimumIncrement());
+        return auction;
+    }
 }
