@@ -27,7 +27,7 @@ import java.util.List;
 public class DeveloperData implements ApplicationRunner {
     
     MemberRepository memberRepository;
-    AuctionRepository auctionRepository
+    AuctionRepository auctionRepository;
     ReviewRepository reviewRepository;
     ArtworkRepository artworkRepository;
     
