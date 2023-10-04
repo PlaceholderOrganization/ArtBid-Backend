@@ -23,7 +23,7 @@ public class ArtworkResponse {
     LocalDate uploadDate;
     boolean forSale;
     List<String> images;
-    String userName;
+    String username;
 
     public ArtworkResponse(Artwork art){
         this.artworkId = art.getArtworkId();
@@ -34,7 +34,7 @@ public class ArtworkResponse {
         this.uploadDate = art.getUploadDate();
         this.forSale = art.isForSale();
         this.images = art.getImages();
-        this.userName = art.getMember().getUsername();
+        this.username = art.getMember().getUsername();
     }
 
 }

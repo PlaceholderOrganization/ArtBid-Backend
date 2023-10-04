@@ -37,6 +37,7 @@ public class ArtworkController {
 
     @PutMapping("/{id}")
     ResponseEntity<Boolean> editArtwork(@RequestBody ArtworkRequest bodyArt, @PathVariable int id){
+        System.out.println("Hello");
         return artworkService.editArtwork(bodyArt, id);
     }
 

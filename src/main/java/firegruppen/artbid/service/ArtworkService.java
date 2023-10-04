@@ -59,6 +59,7 @@ public class ArtworkService {
     }
     //Edit Artwork
     public ResponseEntity<Boolean> editArtwork(ArtworkRequest bodyArt, int id){
+        System.out.println(id);
         Artwork artwork = artworkRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Artwork with this id does not exist"));
         if(!Objects.equals(bodyArt.getArtworkId(), id)){
