@@ -82,12 +82,12 @@ public class SecurityConfig {
                 //TODO 3: This is for demo. Remove before deploy
                 .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/test/user-only")).hasAuthority("USER")
                 .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/test/admin-only")).hasAuthority("ADMIN")
+                
                 // Use this to completely disable security
                 .requestMatchers(mvcMatcherBuilder.pattern("/**")).permitAll()
                 .anyRequest().authenticated()
 
-
-                //.anyRequest().permitAll()
+                .anyRequest().permitAll()
                 );
         
         http.cors().and(); //

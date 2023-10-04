@@ -10,7 +10,6 @@ import firegruppen.artbid.entity.Member;
 import firegruppen.artbid.repository.MemberRepository;
 
 
-
 @Service
 public class MemberService {
     MemberRepository memberRepository;

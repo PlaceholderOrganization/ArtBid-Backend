@@ -1,5 +1,7 @@
 package firegruppen.artbid.configuration;
 
+import firegruppen.artbid.entity.Auction;
+import firegruppen.artbid.repository.AuctionRepository;
 import firegruppen.artbid.entity.Artwork;
 import firegruppen.artbid.entity.Member;
 import firegruppen.artbid.entity.Review;
@@ -25,12 +27,15 @@ import java.util.List;
 public class DeveloperData implements ApplicationRunner {
     
     MemberRepository memberRepository;
+    AuctionRepository auctionRepository
     ReviewRepository reviewRepository;
     ArtworkRepository artworkRepository;
-    public DeveloperData(MemberRepository memberRepository, ArtworkRepository artworkRepository, ReviewRepository reviewRepository) {
+    
+  public DeveloperData(MemberRepository memberRepository, ArtworkRepository artworkRepository, ReviewRepository reviewRepository, AuctionRepository auctionRepository) {
         this.memberRepository = memberRepository;
         this.artworkRepository = artworkRepository;
         this.reviewRepository = reviewRepository;
+        this.auctionRepository = auctionRepository;
     }
 
     @Override
@@ -52,8 +57,12 @@ public class DeveloperData implements ApplicationRunner {
         Review r1 = new Review("description",5, LocalDate.now(),artworks.get(0),m1);
         reviewRepository.save(r1);
 
-
         setupUserWithRoles();
+
+        List<Auction> auctions = new ArrayList<>();
+        auctions.add(new Auction(1, LocalDate.now(),LocalDate.now().plusDays(30), 1000, 3000, 5 ));
+        auctions.add(new Auction(2, LocalDate.now(),LocalDate.now().plusDays(3), 5000, 63000, 2000 ));
+        auctionRepository.saveAll(auctions);
     }
 
     @Autowired
@@ -81,6 +90,7 @@ public class DeveloperData implements ApplicationRunner {
         userWithRolesRepository.save(user2);
         userWithRolesRepository.save(user3);
         userWithRolesRepository.save(user4);
+
         //Reviews for internal tests
     }
 }
