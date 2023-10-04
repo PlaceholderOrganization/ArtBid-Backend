@@ -30,7 +30,7 @@ public class DeveloperData implements ApplicationRunner {
     AuctionRepository auctionRepository;
     ReviewRepository reviewRepository;
     ArtworkRepository artworkRepository;
-    
+
   public DeveloperData(MemberRepository memberRepository, ArtworkRepository artworkRepository, ReviewRepository reviewRepository, AuctionRepository auctionRepository) {
         this.memberRepository = memberRepository;
         this.artworkRepository = artworkRepository;
@@ -46,14 +46,15 @@ public class DeveloperData implements ApplicationRunner {
         List<Artwork> artworks = new ArrayList<>();
 
         String defaultImage = "base64_encoded_image_string_here";
-
-        artworks.add(new Artwork("Title", "Category", "Description", 50, true, Collections.singletonList(defaultImage)));
-        artworks.add(new Artwork("Title1", "Category1", "Description1", 50, true, Collections.singletonList(defaultImage)));
-        artworks.add(new Artwork("Title2", "Category2", "Description2", 50, false, Collections.singletonList(defaultImage)));
-        artworkRepository.saveAll(artworks);
-
         Member m1 = new Member("username1", "Ole", "Olsen", "Olsensvej", "Olsenstad", "0001", "test@m.com", "test123", LocalDateTime.now(), LocalDateTime.now(), true, true, true, new ArrayList<>(Arrays.asList(Role.USER, Role.ADMIN)));
         memberRepository.save(m1);
+
+
+        artworks.add(new Artwork("Title", "Category", "Description", 50, true, Collections.singletonList(defaultImage), m1));
+        artworks.add(new Artwork("Title1", "Category1", "Description1", 50, true, Collections.singletonList(defaultImage), m1));
+        artworks.add(new Artwork("Title2", "Category2", "Description2", 50, false, Collections.singletonList(defaultImage), m1));
+        artworkRepository.saveAll(artworks);
+
         Review r1 = new Review("description",5, LocalDate.now(),artworks.get(0),m1);
         reviewRepository.save(r1);
 
@@ -91,6 +92,12 @@ public class DeveloperData implements ApplicationRunner {
         userWithRolesRepository.save(user3);
         userWithRolesRepository.save(user4);
 
+
+
         //Reviews for internal tests
+      
     }
+
+
+
 }

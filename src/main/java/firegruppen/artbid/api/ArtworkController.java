@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("api/artworks")
+@RequestMapping("api/artwork")
 public class ArtworkController {
 
     ArtworkService artworkService;
@@ -36,7 +36,8 @@ public class ArtworkController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<Boolean> editCar(@RequestBody ArtworkRequest bodyArt, @PathVariable int id){
+    ResponseEntity<Boolean> editArtwork(@RequestBody ArtworkRequest bodyArt, @PathVariable int id){
+        System.out.println("Hello");
         return artworkService.editArtwork(bodyArt, id);
     }
 

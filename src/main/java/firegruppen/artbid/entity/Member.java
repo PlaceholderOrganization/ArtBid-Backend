@@ -39,6 +39,16 @@ public class Member extends UserWithRoles {
     @OneToMany(mappedBy = "member")
     List<Bid> bids;
 
+    public void addArtwork(Artwork artwork) {
+        if(artworks == null){
+            artworks = new ArrayList<>();
+        }
+        artworks.add(artwork);
+    }
+
+    @OneToMany(mappedBy = "member")
+    List<Artwork> artworks;
+
     public void addReview(Review review) {
         if(reviews==null){
             reviews = new ArrayList<>();

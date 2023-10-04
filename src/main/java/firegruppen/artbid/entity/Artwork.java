@@ -45,8 +45,9 @@ public class Artwork {
     @Column(name = "image", length = 10485760)
     private List<String> images;
 
-//    @ManyToOne
-//    Artist artist;
+    @ManyToOne
+    @JoinColumn(name = "artist")
+    Member member;
 
 //    @OneToMany(mappedBy = "artwork")
 //    List<ArtworkImages> artworkImages;
@@ -59,6 +60,17 @@ public class Artwork {
             reviews = new ArrayList<>();
         }
         reviews.add(review);
+    }
+
+    public Artwork(String title, String category, String description, double price, boolean forSale, List<String> images, Member member) {
+        this.title = title;
+        this.category = category;
+        this.description = description;
+        this.price = price;
+        this.forSale = forSale;
+        this.images = images;
+        this.member = member;
+        member.addArtwork(this);
     }
 
     public Artwork(String title, String category, String description, double price, boolean forSale, List<String> images) {
