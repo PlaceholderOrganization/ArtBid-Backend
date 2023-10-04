@@ -53,7 +53,6 @@ public class DeveloperData implements ApplicationRunner {
         reviewRepository.save(r1);
 
 
-
         setupUserWithRoles();
     }
 
