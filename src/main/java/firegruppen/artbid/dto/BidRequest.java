@@ -22,6 +22,10 @@ public class BidRequest {
     int auctionId;
     String username;
 
+    public static Bid getBidEntity(BidRequest r) {
+        return new Bid(r.getAmount(), r.getDate());
+    }
+
     public BidRequest(Bid bid) {
         this.id = bid.getId();
         this.amount = bid.getAmount();

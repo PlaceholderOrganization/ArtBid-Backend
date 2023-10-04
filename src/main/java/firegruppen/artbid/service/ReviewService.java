@@ -8,7 +8,6 @@ import firegruppen.artbid.entity.Review;
 import firegruppen.artbid.repository.ArtworkRepository;
 import firegruppen.artbid.repository.MemberRepository;
 import firegruppen.artbid.repository.ReviewRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -38,9 +37,9 @@ public class ReviewService {
     }
     public void addReview(ReviewRequest reviewRequest) {
         Artwork artwork = artworkRepository.findById(reviewRequest.getArtworkId())
-                .orElseThrow(()-> new EntityNotFoundException("Artwork not found"));
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Artwork not found"));
         Member member = memberRepository.findById(reviewRequest.getUsername())
-                .orElseThrow(()-> new EntityNotFoundException("Member not found"));
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
         Review review = ReviewRequest.getReviewEntity(reviewRequest);
         review.setArtwork(artwork);
         review.setMember(member);
@@ -55,9 +54,9 @@ public class ReviewService {
 
     public void addReviewToArtwork(ReviewRequest reviewRequest, int artworkId) {
         Artwork artwork = artworkRepository.findById(artworkId)
-                .orElseThrow(()-> new EntityNotFoundException("Artwork not found"));
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Artwork not found"));
         Member member = memberRepository.findById(reviewRequest.getUsername())
-                .orElseThrow(()-> new EntityNotFoundException("Member not found"));
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Member not found"));
         if(reviewRepository.existsReviewByArtwork_ArtworkIdAndMember_Username(artworkId,reviewRequest.getUsername())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Can't add multiple reviews");
         }

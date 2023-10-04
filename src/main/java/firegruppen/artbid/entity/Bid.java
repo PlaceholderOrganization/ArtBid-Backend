@@ -36,4 +36,9 @@ public class Bid {
         auction.addBid(this);
         member.addBid(this);
     }
+
+    public Bid(double amount, LocalDate date) {
+        this.amount = amount;
+        this.date = date;
+    }
 }
