@@ -1,12 +1,12 @@
 package firegruppen.artbid.entity;
 
 import firegruppen.artbid.dto.AuctionRequest;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -36,6 +36,16 @@ public class Auction {
 
     @NonNull
     private double minimumIncrement;
+
+    @OneToMany(mappedBy = "auction")
+    List<Bid> bids;
+
+    public void addBid(Bid bid) {
+        if(bids==null) {
+            bids = new ArrayList<>();
+        }
+        bids.add(bid);
+    }
 
     public Auction(@NonNull int artworkId, @NonNull LocalDate startDate, @NonNull LocalDate endDate,
                    @NonNull double startBid, @NonNull double currentBid, @NonNull double minimumIncrement) {

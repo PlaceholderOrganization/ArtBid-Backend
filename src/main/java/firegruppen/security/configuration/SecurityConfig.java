@@ -85,7 +85,7 @@ public class SecurityConfig {
                 
                 // Use this to completely disable security
                 .requestMatchers(mvcMatcherBuilder.pattern("/**")).permitAll()
-                .anyRequest().authenticated()
+//                .anyRequest().authenticated()
 
                 .anyRequest().permitAll()
                 );
