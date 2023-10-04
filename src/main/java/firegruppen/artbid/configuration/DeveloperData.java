@@ -42,13 +42,14 @@ public class DeveloperData implements ApplicationRunner {
         List<Artwork> artworks = new ArrayList<>();
 
         String defaultImage = "base64_encoded_image_string_here";
+        Member m1 = new Member("username1", "Ole", "Olsen", "Olsensvej", "Olsenstad", "0001", "test@m.com", "test123", LocalDateTime.now(), LocalDateTime.now(), true, true, true, new ArrayList<>(Arrays.asList(Role.USER, Role.ADMIN)));
+        memberRepository.save(m1);
 
-        artworks.add(new Artwork("Title", "Category", "Description", 50, true, Collections.singletonList(defaultImage)));
-        artworks.add(new Artwork("Title1", "Category1", "Description1", 50, true, Collections.singletonList(defaultImage)));
-        artworks.add(new Artwork("Title2", "Category2", "Description2", 50, false, Collections.singletonList(defaultImage)));
+        artworks.add(new Artwork("Title", "Category", "Description", 50, true, Collections.singletonList(defaultImage), m1));
+        artworks.add(new Artwork("Title1", "Category1", "Description1", 50, true, Collections.singletonList(defaultImage), m1));
+        artworks.add(new Artwork("Title2", "Category2", "Description2", 50, false, Collections.singletonList(defaultImage), m1));
         artworkRepository.saveAll(artworks);
 
-      
 
 
 
@@ -81,7 +82,7 @@ public class DeveloperData implements ApplicationRunner {
         userWithRolesRepository.save(user3);
         userWithRolesRepository.save(user4);
 
-        Member m1 = new Member("username1", "Ole", "Olsen", "Olsensvej", "Olsenstad", "0001", "test@m.com", "test123", LocalDateTime.now(), LocalDateTime.now(), true, true, true, new ArrayList<>(Arrays.asList(Role.USER, Role.ADMIN)));
+
 
         //Reviews for internal tests
       
