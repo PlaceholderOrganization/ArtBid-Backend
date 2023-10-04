@@ -36,6 +36,9 @@ public class Member extends UserWithRoles {
     @OneToMany(mappedBy = "member")
     List<Review> reviews;
 
+    @OneToMany(mappedBy = "member")
+    List<Bid> bids;
+
     public void addArtwork(Artwork artwork) {
         if(artworks == null){
             artworks = new ArrayList<>();
@@ -51,6 +54,13 @@ public class Member extends UserWithRoles {
             reviews = new ArrayList<>();
         }
         reviews.add(review);
+    }
+
+    public void addBid(Bid bid) {
+        if(bids==null){
+            bids = new ArrayList<>();
+        }
+        bids.add(bid);
     }
 
     public Member(String username, String firstName, String lastName, String street, String city, String zipCode, String email, String password, LocalDateTime created, LocalDateTime updated, boolean enabled, boolean accountNonExpired, boolean accountNonLocked, List<Role> roles) {

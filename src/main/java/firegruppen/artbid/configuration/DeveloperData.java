@@ -1,5 +1,7 @@
 package firegruppen.artbid.configuration;
 
+import firegruppen.artbid.entity.Auction;
+import firegruppen.artbid.repository.AuctionRepository;
 import firegruppen.artbid.entity.Artwork;
 import firegruppen.artbid.entity.Member;
 import firegruppen.artbid.entity.Review;
@@ -13,25 +15,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Configuration
 public class DeveloperData implements ApplicationRunner {
     
     MemberRepository memberRepository;
+    AuctionRepository auctionRepository;
     ReviewRepository reviewRepository;
     ArtworkRepository artworkRepository;
-    public DeveloperData(MemberRepository memberRepository, ArtworkRepository artworkRepository, ReviewRepository reviewRepository) {
+
+  public DeveloperData(MemberRepository memberRepository, ArtworkRepository artworkRepository, ReviewRepository reviewRepository, AuctionRepository auctionRepository) {
         this.memberRepository = memberRepository;
         this.artworkRepository = artworkRepository;
         this.reviewRepository = reviewRepository;
+        this.auctionRepository = auctionRepository;
     }
 
     @Override
@@ -42,18 +46,23 @@ public class DeveloperData implements ApplicationRunner {
         List<Artwork> artworks = new ArrayList<>();
 
         String defaultImage = "base64_encoded_image_string_here";
-        Member m1 = new Member("username1", "Ole", "Olsen", "Olsensvej", "Olsenstad", "0001", "test@m.com", "test123", LocalDateTime.now(), LocalDateTime.now(), true, true, true, new ArrayList<>(Arrays.asList(Role.USER, Role.ADMIN)));
-        memberRepository.save(m1);
 
         artworks.add(new Artwork("Title", "Category", "Description", 50, true, Collections.singletonList(defaultImage), m1));
         artworks.add(new Artwork("Title1", "Category1", "Description1", 50, true, Collections.singletonList(defaultImage), m1));
         artworks.add(new Artwork("Title2", "Category2", "Description2", 50, false, Collections.singletonList(defaultImage), m1));
         artworkRepository.saveAll(artworks);
 
-
-
+        Member m1 = new Member("username1", "Ole", "Olsen", "Olsensvej", "Olsenstad", "0001", "test@m.com", "test123", LocalDateTime.now(), LocalDateTime.now(), true, true, true, new ArrayList<>(Arrays.asList(Role.USER, Role.ADMIN)));
+        memberRepository.save(m1);
+        Review r1 = new Review("description",5, LocalDate.now(),artworks.get(0),m1);
+        reviewRepository.save(r1);
 
         setupUserWithRoles();
+
+        List<Auction> auctions = new ArrayList<>();
+        auctions.add(new Auction(1, LocalDate.now(),LocalDate.now().plusDays(30), 1000, 3000, 5 ));
+        auctions.add(new Auction(2, LocalDate.now(),LocalDate.now().plusDays(3), 5000, 63000, 2000 ));
+        auctionRepository.saveAll(auctions);
     }
 
     @Autowired
