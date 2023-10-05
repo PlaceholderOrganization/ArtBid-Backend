@@ -75,7 +75,42 @@ class AuctionServiceTest {
         assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
     }
 
-    void testEditAuction(){
+    @Test
+    void testEditAuctionCorrectInput(){
+        AuctionRequest request = new AuctionRequest(a1);
 
+        request.setArtworkId(7);
+        request.setStartDate(LocalDate.parse("2024-02-23"));
+        request.setEndDate(LocalDate.parse("2025-01-23"));
+        request.setStartBid(2000);
+        request.setCurrentBid(7000);
+        request.setMinimumIncrement(1000);
+        auctionService.editAuction(request, 1);
+
+        auctionRepository.flush();
+        AuctionResponse response = auctionService.findById(1);
+
+        assertEquals(1, response.getAuctionId());
+        assertEquals(7, response.getArtworkId());
+        assertEquals(LocalDate.parse("2024-02-23"), response.getStartDate());
+        assertEquals(LocalDate.parse("2025-01-23"), response.getEndDate());
+        assertEquals(2000, response.getStartBid());
+        assertEquals(7000, response.getCurrentBid());
+        assertEquals(1000, response.getMinimumIncrement());
     }
+    @Test
+    void testEditAuctionIdNotAllowed(){
+        AuctionRequest request = new AuctionRequest(a1);
+        request.setAuctionId(-1);
+
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> auctionService.editAuction(request, 1));
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+    }
+
+    @Test
+    void testDeleteAuctionById(){
+        auctionService.deleteAuction(1);
+        assertFalse(auctionRepository.existsById(1));
+    }
+
 }

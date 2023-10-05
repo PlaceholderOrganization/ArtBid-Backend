@@ -1,6 +1,7 @@
 package firegruppen.artbid.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import firegruppen.artbid.entity.Auction;
 import lombok.*;
 import java.time.LocalDate;
 
@@ -27,5 +28,14 @@ public class AuctionRequest {
 
     private double minimumIncrement;
 
+    public AuctionRequest(Auction a){
+        this.auctionId = a.getAuctionId();
+        this.artworkId = a.getArtworkId();
+        this.startDate = a.getStartDate();
+        this.endDate = a.getEndDate();
+        this.startBid = a.getStartBid();
+        this.currentBid = a.getCurrentBid();
+        this.minimumIncrement = a.getMinimumIncrement();
+    }
 
 }

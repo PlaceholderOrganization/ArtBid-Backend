@@ -42,7 +42,7 @@ public class AuctionService {
     public AuctionResponse editAuction(AuctionRequest body, int id) {
 
         if(id != body.getAuctionId()){
-            throw new RuntimeException("ID cannot be changed");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot change the ID of auction");
         }
 
         Auction auction = Auction.getAuctionEntity(body);
@@ -68,6 +68,5 @@ public class AuctionService {
         return auctionRepository.findById(id)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Auction with this ID does not exist"));
     }
-
 
 }
