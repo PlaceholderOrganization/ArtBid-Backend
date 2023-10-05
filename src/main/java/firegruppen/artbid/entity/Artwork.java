@@ -52,7 +52,7 @@ public class Artwork {
 //    @OneToMany(mappedBy = "artwork")
 //    List<ArtworkImages> artworkImages;
   
-   @OneToMany(mappedBy = "artwork")
+   @OneToMany(orphanRemoval = true, mappedBy = "artwork")
     List<Review> reviews;
 
     public void addReview(Review review) {

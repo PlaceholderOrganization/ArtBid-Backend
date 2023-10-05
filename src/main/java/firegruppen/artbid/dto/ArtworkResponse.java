@@ -2,6 +2,7 @@ package firegruppen.artbid.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import firegruppen.artbid.entity.Artwork;
+import firegruppen.artbid.entity.Review;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -24,6 +25,7 @@ public class ArtworkResponse {
     boolean forSale;
     List<String> images;
     String username;
+    List<ReviewResponse> reviews;
 
     public ArtworkResponse(Artwork art){
         this.artworkId = art.getArtworkId();
@@ -35,6 +37,10 @@ public class ArtworkResponse {
         this.forSale = art.isForSale();
         this.images = art.getImages();
         this.username = art.getMember().getUsername();
+        if(art.getReviews() != null) {
+            this.reviews = art.getReviews().stream().map(ReviewResponse::new).toList();
+        }
     }
+
 
 }
