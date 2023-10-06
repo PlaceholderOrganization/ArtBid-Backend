@@ -4,7 +4,9 @@ import firegruppen.artbid.dto.AuctionRequest;
 import firegruppen.artbid.dto.AuctionResponse;
 import firegruppen.artbid.entity.Auction;
 import firegruppen.artbid.repository.AuctionRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -24,13 +26,13 @@ public class AuctionService {
     }
 
     public AuctionResponse findById(int id){
-        Auction auction = auctionRepository.findById(id).orElseThrow();
+        Auction auction = getAuctionById(id);
         return new AuctionResponse(auction);
     }
 
     public AuctionResponse addAuction(AuctionRequest body) {
         if (auctionRepository.existsById(body.getAuctionId())){
-            throw new RuntimeException("This auction already exists");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This auction already exists");
         }
         Auction newAuction = Auction.getAuctionEntity(body);
         newAuction = auctionRepository.save(newAuction);
@@ -40,7 +42,7 @@ public class AuctionService {
     public AuctionResponse editAuction(AuctionRequest body, int id) {
 
         if(id != body.getAuctionId()){
-            throw new RuntimeException("ID cannot be changed");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot change the ID of auction");
         }
 
         Auction auction = Auction.getAuctionEntity(body);
@@ -63,8 +65,8 @@ public class AuctionService {
     }
 
     private Auction getAuctionById(int id){
-        return auctionRepository.findById(id).orElseThrow();
+        return auctionRepository.findById(id)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND,"Auction with this ID does not exist"));
     }
-
 
 }
