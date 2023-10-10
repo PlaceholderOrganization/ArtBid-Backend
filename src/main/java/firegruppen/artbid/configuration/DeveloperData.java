@@ -1,11 +1,11 @@
 package firegruppen.artbid.configuration;
 
-import firegruppen.artbid.entity.Auction;
-import firegruppen.artbid.repository.AuctionRepository;
 import firegruppen.artbid.entity.Artwork;
+import firegruppen.artbid.entity.Auction;
 import firegruppen.artbid.entity.Member;
 import firegruppen.artbid.entity.Review;
 import firegruppen.artbid.repository.ArtworkRepository;
+import firegruppen.artbid.repository.AuctionRepository;
 import firegruppen.artbid.repository.MemberRepository;
 import firegruppen.artbid.repository.ReviewRepository;
 import firegruppen.security.entity.Role;
@@ -20,7 +20,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Configuration
@@ -50,9 +49,9 @@ public class DeveloperData implements ApplicationRunner {
         memberRepository.save(m1);
 
 
-        artworks.add(new Artwork("Title", "Category", "Description", 50, true, Collections.singletonList(defaultImage), m1));
-        artworks.add(new Artwork("Title1", "Category1", "Description1", 50, true, Collections.singletonList(defaultImage), m1));
-        artworks.add(new Artwork("Title2", "Category2", "Description2", 50, false, Collections.singletonList(defaultImage), m1));
+        artworks.add(new Artwork("Title", "Category", "Description", 50, true, defaultImage, m1));
+        artworks.add(new Artwork("Title1", "Category1", "Description1", 50, true, defaultImage, m1));
+        artworks.add(new Artwork("Title2", "Category2", "Description2", 50, false, defaultImage, m1));
         artworkRepository.saveAll(artworks);
 
         Review r1 = new Review("description",5, LocalDate.now(),artworks.get(0),m1);

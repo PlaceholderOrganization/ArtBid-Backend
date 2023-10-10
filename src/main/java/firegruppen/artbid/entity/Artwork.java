@@ -1,6 +1,5 @@
 package firegruppen.artbid.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -37,20 +36,23 @@ public class Artwork {
     @Column(name = "forSale")
     private boolean forSale;
 
+    @Lob
+    @Column(name = "image", length = 10485760)
+    private String image;
 
    //Superclass til dato for oprettelse/redigering??
 
-    @ElementCollection
-    @CollectionTable(name = "artwork_images", joinColumns = @JoinColumn(name = "artworkId"))
-    @Column(name = "image", length = 10485760)
-    private List<String> images;
+//    @ElementCollection
+//    @CollectionTable(name = "artwork_images", joinColumns = @JoinColumn(name = "artwork_id"))
+//    @Column(name = "image", length = 10485760)
+//    private List<String> images;
 
     @ManyToOne
     @JoinColumn(name = "artist")
     Member member;
 
 //    @OneToMany(mappedBy = "artwork")
-//    List<ArtworkImages> artworkImages;
+//    List<ArtworkImages> artworkImagesList;
   
    @OneToMany(orphanRemoval = true, mappedBy = "artwork")
     List<Review> reviews;
@@ -62,24 +64,33 @@ public class Artwork {
         reviews.add(review);
     }
 
-    public Artwork(String title, String category, String description, double price, boolean forSale, List<String> images, Member member) {
+//    public void addArtworkImage(ArtworkImages artworkImages) {
+//        if (artworkImagesList==null) {
+//            artworkImagesList = new ArrayList<>();
+//        }
+//        artworkImagesList.add(artworkImages);
+//    }
+
+    public Artwork(String title, String category, String description, double price, boolean forSale, String image, Member member) {
         this.title = title;
         this.category = category;
         this.description = description;
         this.price = price;
         this.forSale = forSale;
-        this.images = images;
+        this.image = image;
         this.member = member;
         member.addArtwork(this);
     }
 
-    public Artwork(String title, String category, String description, double price, boolean forSale, List<String> images) {
+    public Artwork(String title, String category, String description, double price, boolean forSale, String image) {
         this.title = title;
         this.category = category;
         this.description = description;
         this.price = price;
         this.forSale = forSale;
-        this.images = images;
+        this.image = image;
+
+
     }
 
     public boolean isForSale() {
