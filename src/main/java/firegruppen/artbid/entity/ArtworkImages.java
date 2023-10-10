@@ -27,5 +27,6 @@
 //    public ArtworkImages(String image, Artwork artwork) {
 //        this.image = image;
 //        this.artwork = artwork;
+//        artwork.addArtworkImage(this);
 //    }
 //}
