@@ -23,7 +23,7 @@ public class ArtworkRequest {
     String username;
 
     public static Artwork getArtworkEntity(ArtworkRequest art){
-        return new Artwork(art.getTitle(), art.getCategory(), art.getDescription(), art.getPrice(), art.isForSale(), art.getImage());
+        return new Artwork(art.getTitle(), art.getCategory(), art.getDescription(), art.isForSale(), art.getImage());
     }
 
     public ArtworkRequest(Artwork art) {
@@ -31,7 +31,6 @@ public class ArtworkRequest {
         this.title = art.getTitle();
         this.category = art.getCategory();
         this.description = art.getDescription();
-        this.price = art.getPrice();
         this.uploadDate = art.getUploadDate();
         this.forSale = art.isForSale();
         this.image = String.join(",", art.getImage()); //Lidt trouble her med response fra postman, bummelum.

@@ -31,7 +31,6 @@ public class ArtworkResponse {
         this.title = art.getTitle();
         this.category = art.getCategory();
         this.description = art.getDescription();
-        this.price = art.getPrice();
         this.uploadDate = art.getUploadDate();
         this.forSale = art.isForSale();
         this.image = art.getImage();

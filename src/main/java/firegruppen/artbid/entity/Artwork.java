@@ -27,8 +27,6 @@ public class Artwork {
     private String category; 
     @Column(name = "description", length = 1000)
     private String description;
-    @Column(name = "price")
-    private double price;
     @Column(name = "UploadDate")
     @CreationTimestamp
     private LocalDate uploadDate;
@@ -71,22 +69,20 @@ public class Artwork {
 //        artworkImagesList.add(artworkImages);
 //    }
 
-    public Artwork(String title, String category, String description, double price, boolean forSale, String image, Member member) {
+    public Artwork(String title, String category, String description, boolean forSale, String image, Member member) {
         this.title = title;
         this.category = category;
         this.description = description;
-        this.price = price;
         this.forSale = forSale;
         this.image = image;
         this.member = member;
         member.addArtwork(this);
     }
 
-    public Artwork(String title, String category, String description, double price, boolean forSale, String image) {
+    public Artwork(String title, String category, String description, boolean forSale, String image) {
         this.title = title;
         this.category = category;
         this.description = description;
-        this.price = price;
         this.forSale = forSale;
         this.image = image;
 

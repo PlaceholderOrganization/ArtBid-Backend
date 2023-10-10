@@ -67,7 +67,6 @@ public class ArtworkService {
         artwork.setTitle(bodyArt.getTitle());
         artwork.setCategory(bodyArt.getCategory());
         artwork.setDescription(bodyArt.getDescription());
-        artwork.setPrice(bodyArt.getPrice());
         artwork.setForSale(bodyArt.isForSale());
         artwork.setImage(bodyArt.getImage());
         artworkRepository.save(artwork);
