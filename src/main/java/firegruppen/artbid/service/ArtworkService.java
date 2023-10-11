@@ -3,7 +3,9 @@ package firegruppen.artbid.service;
 import firegruppen.artbid.dto.ArtworkRequest;
 import firegruppen.artbid.dto.ArtworkResponse;
 import firegruppen.artbid.entity.Artwork;
+import firegruppen.artbid.entity.Member;
 import firegruppen.artbid.repository.ArtworkRepository;
+import firegruppen.artbid.repository.MemberRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,10 +19,13 @@ import java.util.Objects;
 public class ArtworkService {
 
     ArtworkRepository artworkRepository;
+    MemberRepository memberRepository;
 
-    public ArtworkService(ArtworkRepository artworkRepository){
+    public ArtworkService(ArtworkRepository artworkRepository, MemberRepository memberRepository) {
         this.artworkRepository = artworkRepository;
+        this.memberRepository = memberRepository;
     }
+
 
     //Get Artwork
     public List<ArtworkResponse> getArtwork(){
@@ -37,7 +42,10 @@ public class ArtworkService {
         if(artworkRepository.existsById(bodyArt.getArtworkId())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This Artwork already exist");
         }
+        Member member = memberRepository.findById(bodyArt.getUsername()).
+                orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Member not found"));
         Artwork newArtwork = ArtworkRequest.getArtworkEntity(bodyArt);
+        newArtwork.setMember(member);
         newArtwork = artworkRepository.save(newArtwork);
 
         return new ArtworkResponse(newArtwork);
@@ -50,6 +58,7 @@ public class ArtworkService {
     }
     //Edit Artwork
     public ResponseEntity<Boolean> editArtwork(ArtworkRequest bodyArt, int id){
+        System.out.println(id);
         Artwork artwork = artworkRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Artwork with this id does not exist"));
         if(!Objects.equals(bodyArt.getArtworkId(), id)){
@@ -60,7 +69,7 @@ public class ArtworkService {
         artwork.setDescription(bodyArt.getDescription());
         artwork.setPrice(bodyArt.getPrice());
         artwork.setForSale(bodyArt.isForSale());
-        artwork.setImages(bodyArt.getImages());
+        artwork.setImage(bodyArt.getImage());
         artworkRepository.save(artwork);
         return ResponseEntity.ok(true);
     }

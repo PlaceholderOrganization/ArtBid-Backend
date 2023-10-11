@@ -21,7 +21,7 @@ public class Review {
     String description;
 
     @Column(nullable = false)
-    Integer rating;
+    int rating;
 
 
     LocalDate date;
@@ -35,7 +35,7 @@ public class Review {
     @JoinColumn(name = "reviewer_username", nullable = false)
     Member member;
 
-    public Review(String description, Integer rating, LocalDate date, Artwork artwork, Member member) {
+    public Review(String description, int rating, LocalDate date, Artwork artwork, Member member) {
         this.description = description;
         this.rating = rating;
         this.date = date;
@@ -43,5 +43,11 @@ public class Review {
         artwork.addReview(this);
         this.member = member;
         member.addReview(this);
+    }
+
+    public Review(String description, int rating, LocalDate date) {
+        this.description = description;
+        this.rating = rating;
+        this.date = date;
     }
 }

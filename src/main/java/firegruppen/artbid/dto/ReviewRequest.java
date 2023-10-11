@@ -16,12 +16,17 @@ public class ReviewRequest {
 
     Integer id;
     String description;
-    Integer rating;
+    int rating;
     @JsonFormat(pattern = "yyyy-MM-dd",shape = JsonFormat.Shape.STRING)
     LocalDate date;
     String username;
     Integer artworkId;
 
+    public static Review getReviewEntity(ReviewRequest r) {
+        return new Review(r.getDescription(), r.getRating(), r.getDate());
+    }
+
+    //Think its for tests
     public ReviewRequest(Review review) {
         this.id = review.getId();
         this.description = review.getDescription();
