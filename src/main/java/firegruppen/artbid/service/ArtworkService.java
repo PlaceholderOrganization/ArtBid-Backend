@@ -6,7 +6,6 @@ import firegruppen.artbid.entity.Artwork;
 import firegruppen.artbid.entity.Member;
 import firegruppen.artbid.repository.ArtworkRepository;
 import firegruppen.artbid.repository.MemberRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -70,7 +69,7 @@ public class ArtworkService {
         artwork.setDescription(bodyArt.getDescription());
         artwork.setPrice(bodyArt.getPrice());
         artwork.setForSale(bodyArt.isForSale());
-        artwork.setImages(bodyArt.getImages());
+        artwork.setImage(bodyArt.getImage());
         artworkRepository.save(artwork);
         return ResponseEntity.ok(true);
     }
