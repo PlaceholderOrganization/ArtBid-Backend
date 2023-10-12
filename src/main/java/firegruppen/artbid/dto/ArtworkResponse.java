@@ -24,7 +24,7 @@ public class ArtworkResponse {
     boolean forSale;
     List<String> images;
     String username;
-    List<ReviewResponse> review;
+    List<ReviewResponse> reviews;
 
     public ArtworkResponse(Artwork art) {
         this.artworkId = art.getArtworkId();
@@ -36,8 +36,8 @@ public class ArtworkResponse {
         this.forSale = art.isForSale();
         this.images = art.getImages();
         this.username = art.getMember().getUsername();
-        if (review != null) {
-            this.review = art.getReviews().stream().map(ReviewResponse::new).toList();
+        if(art.getReviews() != null) {
+            this.reviews = art.getReviews().stream().map(ReviewResponse::new).toList();
         }
     }
 }

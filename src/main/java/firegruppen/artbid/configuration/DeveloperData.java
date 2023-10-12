@@ -50,9 +50,9 @@ public class DeveloperData implements ApplicationRunner {
         memberRepository.save(m1);
 
 
-        artworks.add(new Artwork("Title", "Category", "Description", 50, true, Collections.singletonList(defaultImage), m1));
-        artworks.add(new Artwork("Title1", "Category1", "Description1", 50, true, Collections.singletonList(defaultImage), m1));
-        artworks.add(new Artwork("Title2", "Category2", "Description2", 50, false, Collections.singletonList(defaultImage), m1));
+        artworks.add(new Artwork("Title", "Painting", "Description", 50, true, Collections.singletonList(defaultImage), m1));
+        artworks.add(new Artwork("Title1", "Sculpture", "Description1", 50, true, Collections.singletonList(defaultImage), m1));
+        artworks.add(new Artwork("Title2", "Ceramic", "Description2", 50, false, Collections.singletonList(defaultImage), m1));
         artworkRepository.saveAll(artworks);
 
         Review r1 = new Review("description",5, LocalDate.now(),artworks.get(0),m1);
