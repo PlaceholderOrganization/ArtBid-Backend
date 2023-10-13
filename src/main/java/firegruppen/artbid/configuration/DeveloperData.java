@@ -52,6 +52,7 @@ public class DeveloperData implements ApplicationRunner {
         artworks.add(new Artwork("Title", "Category", "Description", 50, true, defaultImage, m1));
         artworks.add(new Artwork("Title1", "Category1", "Description1", 50, true, defaultImage, m1));
         artworks.add(new Artwork("Title2", "Category2", "Description2", 50, false, defaultImage, m1));
+
         artworkRepository.saveAll(artworks);
 
         Review r1 = new Review("description",5, LocalDate.now(),artworks.get(0),m1);
