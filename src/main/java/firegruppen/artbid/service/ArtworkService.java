@@ -61,7 +61,7 @@ public class ArtworkService {
         System.out.println(id);
         Artwork artwork = artworkRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Artwork with this id does not exist"));
-        if(!Objects.equals(bodyArt.getArtworkId(), id)){
+        if(bodyArt.getArtworkId()!=id){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not allowed to change id");
         }
         artwork.setTitle(bodyArt.getTitle());

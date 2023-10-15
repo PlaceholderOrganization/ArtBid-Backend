@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -38,12 +39,21 @@ public class BidService {
         Auction auction = auctionRepository.findById(auctionId).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Auction not found"));
         Member member = memberRepository.findById(body.getUsername()).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member not found"));
         Bid bid = BidRequest.getBidEntity(body);
-        if(bid.getAmount()>auction.getStartBid()) {
+        if(bid.getAmount()<auction.getStartBid()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't bid under minimum");
+        }
+        if(bid.getAmount()<=auction.getCurrentBid()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't bid under current bid");
+        }
+        if(bid.getAmount()<(auction.getCurrentBid() + auction.getMinimumIncrement())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Can't bid under minimum increment");
         }
         bid.setAuction(auction);
         bid.setMember(member);
+        bid.setDate(LocalDate.now());
         bidRepository.save(bid);
+        auction.setCurrentBid(bid.getAmount());
+        auctionRepository.save(auction);
         return ResponseEntity.ok(true);
     }
 }
