@@ -20,10 +20,9 @@ import java.util.List;
 public class Member extends UserWithRoles {
     
 
-    @NonNull
+
     @Column(length = 25, name = "first_name")
     private String firstName;
-    @NonNull
     @Column(length = 25, name = "last_name")
     private String lastName;
     @Column(length = 45)
